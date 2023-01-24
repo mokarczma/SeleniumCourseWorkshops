@@ -11,4 +11,4 @@ Feature: Mystore Users
     Examples:
       | alias  | address    | city     | zip    | phone     |
       | dom    | Polna 23   | Warszawa | 02-887 | 123456789 |
-      | praca  | Dolna 15   | Warszawa | 02-887 | 987654321 |
+      | praca  | Dolna 15   | Warszawa | 02-889 | 987654321 |

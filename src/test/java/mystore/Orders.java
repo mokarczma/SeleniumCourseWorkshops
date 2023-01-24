@@ -48,7 +48,6 @@ public class Orders {
         Assert.assertTrue(orderConfirmationPage.orderExists());
     }
 
-
     @After
     public void cleanup() {
         driver.quit();

@@ -1,10 +1,10 @@
 package myStore;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.*;
+import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.PageFactory;
+
+import java.io.File;
 
 public class OrderConfirmationPage {
 
@@ -17,7 +17,8 @@ public class OrderConfirmationPage {
 
 
     public Boolean orderExists() {
-       return driver.findElement(By.xpath("/h3[contains(text(),'Order items')]")).isDisplayed();
+        WebDriver augmentedDriver = new Augmenter().augment(driver);
+        File source = ((TakesScreenshot)augmentedDriver).getScreenshotAs(OutputType.FILE);
+        return driver.findElement(By.xpath("//h3[contains(text(),'Order items')]")).isDisplayed();
     }
-
 }
