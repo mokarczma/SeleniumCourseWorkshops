@@ -8,6 +8,7 @@ import myStore.AuthenticationPage;
 import myStore.MyAccountPage;
 import myStore.MyAddressesPage;
 import myStore.NewAddressPage;
+import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -24,26 +25,30 @@ public class MyStoreSteps {
         this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         this.driver.get(url);
         AuthenticationPage authenticationPage = new AuthenticationPage(driver);
-        authenticationPage.signIn("jxfzghimqynrdpsvvc@tmmbt.com", "test123");
+        authenticationPage.signIn("rfhxyzmioqzrbkbgvu@tmmcv.net", "andrzej2345");
         MyAccountPage myAccountPage = new MyAccountPage(driver);
         myAccountPage.goToAdressPage();
         MyAddressesPage myAddressesPage = new MyAddressesPage(driver);
+        myAddressesPage.deleteAllAddressesWithoutMain();
         myAddressesPage.goToNewAdressPage();
     }
-
-    @When("new address add")
-    public void newAddressAdd() {
+    @When("user type {}, {}, {}, {}, {} in the new addresses form")
+    public void newAddressAdd(String alias, String  address, String  city, String  zip,  String phone) {
         NewAddressPage newAddressPage = new NewAddressPage(driver);
-        newAddressPage.addNewAdress("12","Jasna 3", "Warszawa", "02-781", "123456789");
+        newAddressPage.addNewAdress(alias, address, city, zip, phone);
     }
 
-    @Then("address is added")
-    public void addressIsAdded() {
-        var aa = "Monia";
+    @Then("address with alias: {} is added")
+    public void addressIsAdded(String alias) {
+        MyAddressesPage myAddressesPage = new MyAddressesPage(driver);
+        var tes = myAddressesPage.checkAddressExistsByAlias(alias);
+        Assert.assertTrue(myAddressesPage.checkAddressExistsByAlias(alias));
     }
 
-    @And("close browser")
+    @And("clean up and close browser")
     public void closeBrowser() {
+        MyAddressesPage myAddressesPage = new MyAddressesPage(driver);
+        myAddressesPage.deleteAllAddressesWithoutMain();
         this.driver.quit();
     }
 
